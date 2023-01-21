@@ -10,6 +10,7 @@ export const AuthContext = React.createContext({
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = React.useState(null);
+  const [authReady, setAuthReady] = React.useState(false);
 
   // open modal
   const login = () => {
@@ -24,6 +25,12 @@ export const AuthContextProvider = ({ children }) => {
     // init netlitfy identity connection
     netlifyIdentity.init();
 
+    netlifyIdentity.on("init", user => {
+      setUser(user);
+      setAuthReady(true);
+      console.log("init event");
+    });
+
     netlifyIdentity.on("login", user => {
       setUser(user);
       netlifyIdentity.close(); // close modal
@@ -36,12 +43,13 @@ export const AuthContextProvider = ({ children }) => {
     });
 
     return () => {
+      netlifyIdentity.off("init");
       netlifyIdentity.off("login");
       netlifyIdentity.off("logout");
     };
   }, []);
 
-  const context = { user, login, logout };
+  const context = { user, authReady, login, logout };
 
   return <AuthContext.Provider value={context}>{children}</AuthContext.Provider>;
 };

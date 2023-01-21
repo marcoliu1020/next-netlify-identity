@@ -5,37 +5,41 @@ import React from "react";
 import { AuthContext } from "../stores/authContext";
 
 export default function Navbar() {
-  const { user, login, logout } = React.useContext(AuthContext);
+  const { user, authReady, login, logout } = React.useContext(AuthContext);
   console.log(user);
+  console.log(authReady);
 
   return (
     <div className='container'>
       <nav>
         <Image src='/rupee.png' alt='' width={50} height={48} />
         <h1>Gaming Vibes</h1>
-        <ul>
-          <li>
-            <Link href={"/"}>Home</Link>
-          </li>
 
-          <li>
-            <Link href={"/guides"}>Guides</Link>
-          </li>
-
-          {!user && (
-            <li onClick={login} className='btn'>
-              Login/Signup
+        {authReady && (
+          <ul>
+            <li>
+              <Link href={"/"}>Home</Link>
             </li>
-          )}
 
-          {user && <li>{user.email}</li>}
-
-          {user && (
-            <li onClick={logout} className='btn'>
-              Logout
+            <li>
+              <Link href={"/guides"}>Guides</Link>
             </li>
-          )}
-        </ul>
+
+            {!user && (
+              <li onClick={login} className='btn'>
+                Login/Signup
+              </li>
+            )}
+
+            {user && <li>{user.email}</li>}
+
+            {user && (
+              <li onClick={logout} className='btn'>
+                Logout
+              </li>
+            )}
+          </ul>
+        )}
       </nav>
 
       <div className='banner'>
