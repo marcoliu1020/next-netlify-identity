@@ -12,7 +12,7 @@ export default function Navbar() {
   return (
     <div className='container'>
       <nav>
-        <Image src='/rupee.png' alt='' width={50} height={48} />
+        <Image src={"/rupee.png"} alt='' width={50} height={48} />
         <h1>Gaming Vibes</h1>
 
         {authReady && (
@@ -43,7 +43,7 @@ export default function Navbar() {
       </nav>
 
       <div className='banner'>
-        <Image src='/banner.png' alt='' width={966} height={276} />
+        <Image src={"/banner.png"} alt='' width={966} height={276} />
       </div>
     </div>
   );
