@@ -1,4 +1,4 @@
-export async function handler() {
+exports.handler = async () => {
   console.log("function ran");
 
   const data = { name: "Marco", age: 35, job: "plumber" };
@@ -8,4 +8,4 @@ export async function handler() {
     statusCode: 200,
     body: JSON.stringify(data),
   };
-}
+};
